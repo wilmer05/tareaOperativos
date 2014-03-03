@@ -16,6 +16,6 @@ void eliminar_elem(lista *, caja *, int (*fptr)(void *,void *));
 
 int puedoBorrar(caja *);
 
+int liberar(caja *);
+
 caja *esta(lista *, caja *, int(*fptr (void *, void *)), int);
-
-

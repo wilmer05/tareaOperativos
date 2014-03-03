@@ -33,6 +33,15 @@ void eliminar_elem(lista *l, caja *c, int (*fptr)(void *,void *)){
 }
 
 
+void liberar(caja *c){
+	c->next=c->prev=NULL;
+	file *ptr = (file *) cont;
+	free(ptr->hijos);
+	free(file);
+	free(c);
+}
+
+
 int puedoBorrar(caja *borrar){
 	if(borrar==NULL) return 0;
 
