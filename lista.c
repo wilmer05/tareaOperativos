@@ -5,6 +5,7 @@
 #endif
 
 #ifndef estructuras
+	#define estructuras
 	#include"estructura.h"
 #endif
 
@@ -71,7 +72,7 @@ caja *esta(lista *l, caja *c, int(*fptr (caja *, caja *)), int opcion){
 	caja *buscar = l->first;
 
 	while(buscar!=NULL){
-		if(fptr(buscar, c)) 
+		if((*fptr)(buscar, c)) 
 			break;
 		buscar = buscar-> next;
 	}
