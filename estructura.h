@@ -1,4 +1,5 @@
 #ifndef std
+	#define std
 	#include<stdio.h>
 	#include<string.h>
 #endif
@@ -20,7 +21,7 @@
 	} lista;
 
 	typedef struct F{
-		char nombre[largo];
+		char *nombre;
 		int tipo;
 		lista *hijos;
 	} file;

@@ -8,14 +8,23 @@
 	#include"estructura.h"
 #endif
 
+#ifndef lista
+	#define lista
+	#include"lista.h"
+#endif
 
+
+
+int comparador(caja *c1, caja *c2){
+	return strcmp(((file *)(c1->cont))->nombre,((file *)(c2->cont))->nombre);
+}
 
 void inicializar(lista *l){
-	l->primero=NULL;
+	l->first=NULL;
 	l->tam=0;
 }
 
-void agregar_elem(lista *l, caja *c, int (*fptr)(void *,void *)){
+void agregar_elem(lista *l, caja *c, int (*fptr)(caja *,caja *)){
 	if(esta(lista,c,fptr,0)!=NULL){
 		c->next = l->first;
 		c->prev = NULL;
@@ -26,10 +35,12 @@ void agregar_elem(lista *l, caja *c, int (*fptr)(void *,void *)){
 		(l->tam)++;
 		l->first = c;
 	}
+	else liberar(c);
 }
 
-void eliminar_elem(lista *l, caja *c, int (*fptr)(void *,void *)){
+void eliminar_elem(lista *l, caja *c, int (*fptr)(caja *,caja *)){
 	esta(lista,c,fptr,1);
+	liberar(c);
 }
 
 
@@ -37,7 +48,8 @@ void liberar(caja *c){
 	c->next=c->prev=NULL;
 	file *ptr = (file *) cont;
 	free(ptr->hijos);
-	free(file);
+	free(ptr->nombre);
+	free(ptr);
 	free(c);
 }
 
@@ -55,11 +67,11 @@ int puedoBorrar(caja *borrar){
 }
 
 
-caja *esta(lista *l, caja *c, int(*fptr (void *, void *)), int opcion){
+caja *esta(lista *l, caja *c, int(*fptr (caja *, caja *)), int opcion){
 	caja *buscar = l->first;
 
 	while(buscar!=NULL){
-		if(fptr((void *) buscar, (void *) c)) 
+		if(fptr(buscar, c)) 
 			break;
 		buscar = buscar-> next;
 	}
@@ -81,6 +93,6 @@ caja *esta(lista *l, caja *c, int(*fptr (void *, void *)), int opcion){
 		(l->tam)--;
 		liberar(buscar);
 	}
-	return 1;
+	return NULL;
 
 }
