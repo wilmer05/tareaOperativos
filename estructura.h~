@@ -9,6 +9,13 @@
 
 #ifndef estructuras
 	#define estructuras
+	typedef struct F{
+		char nombre[largo];
+		int tipo;
+		int num;
+		lista hijos;
+	} file;
+
 	typedef struct C{
 		void *cont;
 		C *next,*prev;
@@ -19,10 +26,5 @@
 		int tam;
 	} lista;
 
-	typedef struct F{
-		char nombre[largo];
-		int tipo;
-		lista *hijos;
-	} file;
 
 #endif

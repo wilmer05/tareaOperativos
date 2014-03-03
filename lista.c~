@@ -1,48 +1,40 @@
 #ifndef std
-	#define std
 	#include<stdio.h>
 	#include<string.h>
+	#include<"estructura"
 #endif
 
-#ifndef estructuras
-	#include"estructura.h"
-#endif
+typedef struct C{
+	void *cont;
+	C *next,*prev;
+}caja;
 
-
+typedef struct {
+	caja *first;
+	int tam;
+} lista;
 
 void inicializar(lista *l){
 	l->primero=NULL;
 	l->tam=0;
 }
 
-void agregar_elem(lista *l, caja *c, int (*fptr)(void *,void *)){
+int agregar_elem(lista *l, caja *c, int (*fptr)(void *,void *)){
 	if(!esta(lista,c,fptr,0)){
 		c->next = l->first;
 		c->prev = NULL;
-
-		if(l->first!=NULL)
-			(l->first)->prev = c;
-
+		(l->first)->prev = c;
 		(l->tam)++;
 		l->first = c;
+		return 0;
 	}
+	return 1;
+//	else{
+//		perror("Archivo o directorio ya existente\n");
+//		return 1;
+//	}
 }
 
-void eliminar_elem(lista *l, caja *c, int (*fptr)(void *,void *)){
-	esta(lista,c,fptr,1);
-}
-
-
-int puedoBorrar(caja *borrar){
-
-	file *ptr = (file *)borrar->cont;
-
-	//Si es un archivo puedo borrar
-	if(file->tipo) return 1;
-	
-	//Si no lo es, es un directorio por lo que verifico si tiene hijos
-	return !((file->hijos)->tam);
-}
 
 
 int esta(lista *l, caja *c, int(*fptr (void *, void *)), int opcion){
@@ -72,6 +64,6 @@ int esta(lista *l, caja *c, int(*fptr (void *, void *)), int opcion){
 		(l->tam)--;
 		liberar(buscar);
 	}
-	return 1;
 
+	return 1;
 }
