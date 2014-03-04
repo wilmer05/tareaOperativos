@@ -2,6 +2,7 @@
 	#define std
 	#include<stdio.h>
 	#include<string.h>
+	#include<stdlib.h>
 #endif
 
 #ifndef estructuras
@@ -9,10 +10,16 @@
 	#include"estructura.h"
 #endif
  
-#ifndef lista
-	#define lista
+#ifndef listas
+	#define listas
 	#include"lista.h"
 #endif
+
+#ifndef operaciones
+	#define operaciones
+#endif
+
+void bfs(lista *);
 
 void mk_md_rm(char *, lista *, caja *,int, int, int, int (*fptr)(caja *, caja*));
 

@@ -1,25 +1,29 @@
 #ifndef std
 	#include<stdio.h>
 	#include<string.h>
+	#include<stdlib.h>
 #endif
 
-#include"operaciones.h"
+#ifndef operaciones
+	#define operaciones
+	#include"operaciones.h"
+#endif
 
 const int MAX_TAM = 10000;
-char comando[MAX_TAM];
-
 
 int main(int argc, char **argv){
 
 	FILE *fptr;
+	char comando[MAX_TAM];
+
 	if(argc<2) {
 		perror("Faltan argumentos, la llamada debe ser: Ejecutable < nombre_archivo >");
 		return 1;
 	}
 
 
-	fptr = fopen(argv,"r");
-	if(f==NULL) {
+	fptr = fopen(argv[1],"r");
+	if(fptr==NULL) {
 		perror("Error al abrir archivo");
 		return 1;
 	}
@@ -33,7 +37,7 @@ int main(int argc, char **argv){
 	lista *arbol;
 	inicializar(arbol);
 
-	while(fgets(comando,MAX_TAM,f)!=NULL){
+	while(fgets(comando,MAX_TAM,fptr)!=NULL){
 		int size = strlen(comando);
 		int indice = size-1;
 
@@ -47,25 +51,26 @@ int main(int argc, char **argv){
 		if(opcion==-1) continue;
 		caja *nueva;
 		file *arch;
-		nueva = (caja *) malloc(sizeof caja);
-		arch = (file *) malloc(sizeof file);
-		arch->hijos = (lista *) malloc(sizeof lista);
+		nueva = (caja *) malloc(sizeof(caja));
+		arch = (file *) malloc(sizeof(file));
+		arch->hijos = (lista *) malloc(sizeof(lista));
 		inicializar(arch->hijos);
-		arch->nombre= (char *) malloc(size-indice+10);
+		arch->nombre= (char *) malloc((size-indice+10)*(sizeof(char)));
 		memset(arch->nombre,0,sizeof (arch->nombre));
 
 		if(!opcion && comando[1]=='d') arch->tipo = 0;
 		else if(!opcion) arch->tipo=1;
 
 
-		for(int i=indice;i<size;i++) 
-			(arch->nombre)[i-indice]=comando[indice];
-		
+		strcpy(arch->nombre,comando+indice);
+			
 		nueva->next=nueva->prev=NULL;
 		nueva->cont = (void *) arch;
 
-		mk_md_rm(comando,arbol,nueva,3,indice,funcptr);		
+		mk_md_rm(comando,arbol,nueva,4,indice,opcion,funcptr);		
 	}
+	
+	bfs(arbol);
 
 	fclose(fptr);
 

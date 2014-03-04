@@ -2,6 +2,7 @@
 	#define std
 	#include<stdio.h>
 	#include<string.h>
+	#include<stdlib.h>
 #endif
 
 #ifndef estructuras
@@ -9,8 +10,8 @@
 	#include"estructura.h"
 #endif
 
-#ifndef lista
-	#define lista
+#ifndef listas
+	#define listas
 	#include"lista.h"
 #endif
 
@@ -26,7 +27,7 @@ void inicializar(lista *l){
 }
 
 void agregar_elem(lista *l, caja *c, int (*fptr)(caja *,caja *)){
-	if(esta(lista,c,fptr,0)!=NULL){
+	if(esta(l,c,fptr,0)!=NULL){
 		c->next = l->first;
 		c->prev = NULL;
 
@@ -40,14 +41,14 @@ void agregar_elem(lista *l, caja *c, int (*fptr)(caja *,caja *)){
 }
 
 void eliminar_elem(lista *l, caja *c, int (*fptr)(caja *,caja *)){
-	esta(lista,c,fptr,1);
+	esta(l,c,fptr,1);
 	liberar(c);
 }
 
 
 void liberar(caja *c){
 	c->next=c->prev=NULL;
-	file *ptr = (file *) cont;
+	file *ptr = (file *) (c->cont);
 	free(ptr->hijos);
 	free(ptr->nombre);
 	free(ptr);
@@ -61,14 +62,14 @@ int puedoBorrar(caja *borrar){
 	file *ptr = (file *)(borrar->cont);
 
 	//Si es un archivo puedo borrar
-	if(file->tipo) return 1;
+	if(ptr->tipo) return 1;
 	
 	//Si no lo es, es un directorio por lo que verifico si tiene hijos
-	return !((file->hijos)->tam);
+	return !((ptr->hijos)->tam);
 }
 
 
-caja *esta(lista *l, caja *c, int(*fptr (caja *, caja *)), int opcion){
+caja *esta(lista *l, caja *c, int (*fptr)(caja *, caja *), int opcion){
 	caja *buscar = l->first;
 
 	while(buscar!=NULL){

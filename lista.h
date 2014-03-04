@@ -2,10 +2,16 @@
 	#define std
 	#include<stdio.h>
 	#include<string.h>
+	#include<stdlib>
 #endif
 
 #ifndef estructuras
+	#define estructuras
 	#include"estructura.h"
+#endif
+
+#ifndef listas
+	#define listas
 #endif
 
 int comparador(caja *, caja *);
@@ -18,6 +24,6 @@ void eliminar_elem(lista *, caja *, int (*fptr)(caja *,caja *));
 
 int puedoBorrar(caja *);
 
-int liberar(caja *);
+void liberar(caja *);
 
-caja *esta(lista *, caja *, int(*fptr (caja *, caja *)), int);
+caja *esta(lista *, caja *, int (*fptr)(caja *, caja *), int);
