@@ -24,15 +24,10 @@ typedef struct {
 } lista;
 
 typedef struct F{
+	char *ruta;
 	char *nombre;
 	int tipo;
 	lista *hijos;
 } file;
 
 
-typedef struct N{
-	char *ruta;
-	char *nombre;
-	int tipo;
-	lista *hijos;
-} nodo;

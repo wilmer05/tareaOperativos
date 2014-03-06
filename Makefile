@@ -17,4 +17,4 @@ lista.o: lista.c estructura.h
 	$(CC) -c lista.c $(OPT)
 
 clean:
-	rm $(OBJ)
+	rm $(OBJ) $(PROG)

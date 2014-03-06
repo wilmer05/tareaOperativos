@@ -15,10 +15,12 @@
 	#include"lista.h"
 #endif
 
-
+int comparador2(caja *c1, caja*c2){
+	return 0;
+}
 
 int comparador(caja *c1, caja *c2){
-	return strcmp(((file *)(c1->cont))->nombre,((file *)(c2->cont))->nombre);
+	return !strcmp(((file *)(c1->cont))->nombre,((file *)(c2->cont))->nombre);
 }
 
 void inicializar(lista *l){
@@ -27,15 +29,23 @@ void inicializar(lista *l){
 }
 
 void agregar_elem(lista *l, caja *c, int (*fptr)(caja *,caja *)){
-	if(esta(l,c,fptr,0)!=NULL){
-		c->next = l->first;
-		c->prev = NULL;
+	if(esta(l,c,fptr,0)==NULL){
 
-		if(l->first!=NULL)
-			(l->first)->prev = c;
+		if(l->first==NULL) 
+			l->first=c,c->prev=NULL;
+		else{
+			caja *tmp = l->first;
+
+			while(tmp->next!=NULL){
+				tmp=tmp->next;
+			}
+			tmp->next = c;
+			c->prev=tmp;
+		}
+
+		c->next=NULL;
 
 		(l->tam)++;
-		l->first = c;
 	}
 	else liberar(c);
 }
@@ -46,11 +56,23 @@ void eliminar_elem(lista *l, caja *c, int (*fptr)(caja *,caja *)){
 }
 
 
+void liberar2(caja *c){
+	c->next=c->prev=NULL;
+	file *ptr = (file *) (c->cont);
+	free(ptr->hijos);
+	free(ptr->nombre);
+	free(ptr->ruta);
+	free(ptr);
+	free(c);
+}
+
+
 void liberar(caja *c){
 	c->next=c->prev=NULL;
 	file *ptr = (file *) (c->cont);
 	free(ptr->hijos);
 	free(ptr->nombre);
+	free(ptr->ruta);
 	free(ptr);
 	free(c);
 }

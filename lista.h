@@ -14,6 +14,8 @@
 	#define listas
 #endif
 
+int comparador2(caja *, caja *);
+
 int comparador(caja *, caja *);
 
 void inicializar(lista *);

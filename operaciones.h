@@ -19,6 +19,8 @@
 	#define operaciones
 #endif
 
+void liberar_memoria(lista *);
+
 void bfs(lista *);
 
 void mk_md_rm(char *, lista *, caja *,int, int, int, int (*fptr)(caja *, caja*));
