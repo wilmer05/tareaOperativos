@@ -84,11 +84,8 @@ void mk_md_rm(char *ruta, lista *l, caja *c,int ind1, int ind2, int opc, int (*f
 	caja *busc = l->first;
 	
 	while(busc!=NULL){
-	//	printf("%s\n%s\n",sig, (((file *)(busc->cont))->nombre));
-	//	printf("%d\n", strcmp(sig,((file *)(busc->cont))->nombre) );
 		if(!strcmp(sig,((file *)(busc->cont))->nombre)) break;
 		busc=busc->next;
-	//	printf("ble\n");
 	}
 	
 	ind1++;
@@ -96,5 +93,6 @@ void mk_md_rm(char *ruta, lista *l, caja *c,int ind1, int ind2, int opc, int (*f
 	if(busc==NULL) return;
 	if((((file *)(busc->cont))->tipo)==0)
 		mk_md_rm(ruta,((file*)(busc->cont))->hijos,c,ind1,ind2,opc,fptr);
+	else liberar(c);
 
 }

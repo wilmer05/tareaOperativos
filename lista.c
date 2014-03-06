@@ -56,16 +56,6 @@ void eliminar_elem(lista *l, caja *c, int (*fptr)(caja *,caja *)){
 }
 
 
-void liberar2(caja *c){
-	c->next=c->prev=NULL;
-	file *ptr = (file *) (c->cont);
-	free(ptr->hijos);
-	free(ptr->nombre);
-	free(ptr->ruta);
-	free(ptr);
-	free(c);
-}
-
 
 void liberar(caja *c){
 	c->next=c->prev=NULL;
