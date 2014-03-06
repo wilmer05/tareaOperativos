@@ -15,27 +15,41 @@
 	#include"lista.h"
 #endif
 
+
+//Funcion utilizada para siempre agregar una caja a una lista
 int comparador2(caja *c1, caja*c2){
 	return 0;
 }
 
+
+
+//Funcion que compara si dos cajas que apuntan a file se refieren al mismo file
+//La comparacion se hace por los nombres
 int comparador(caja *c1, caja *c2){
 	return !strcmp(((file *)(c1->cont))->nombre,((file *)(c2->cont))->nombre);
 }
 
+
+//Funcion utilizada para inicializar una lista
 void inicializar(lista *l){
 	l->first=NULL;
 	l->tam=0;
 }
 
+
+/*Funcion que se utiliza para agregar un elemento a una lista si
+este no esta contenido en la misma*/
+
 void agregar_elem(lista *l, caja *c, int (*fptr)(caja *,caja *)){
 	if(esta(l,c,fptr,0)==NULL){
 
+		//si esta vacia simplemente esta caja es el primer elemento de la lista
 		if(l->first==NULL) 
 			l->first=c,c->prev=NULL;
 		else{
 			caja *tmp = l->first;
 
+			//Me voy hasta el final de la lista y lo agrego
 			while(tmp->next!=NULL){
 				tmp=tmp->next;
 			}
@@ -50,13 +64,14 @@ void agregar_elem(lista *l, caja *c, int (*fptr)(caja *,caja *)){
 	else liberar(c);
 }
 
+//Funcion utilizada para eliminar un elemento de una lista
 void eliminar_elem(lista *l, caja *c, int (*fptr)(caja *,caja *)){
 	esta(l,c,fptr,1);
 	liberar(c);
 }
 
 
-
+//Funcion utilizada para liberar la memoria correspondiente a una caja
 void liberar(caja *c){
 	c->next=c->prev=NULL;
 	file *ptr = (file *) (c->cont);
@@ -68,6 +83,8 @@ void liberar(caja *c){
 }
 
 
+//Funcion que verifica si un elemento del arbol de directorios se puede borrar
+//Esto sucede cuando es un archivo o un directorio vacio
 int puedoBorrar(caja *borrar){
 	if(borrar==NULL) return 0;
 
@@ -81,6 +98,10 @@ int puedoBorrar(caja *borrar){
 }
 
 
+//Funcion utilizada para verificar si una caja c esta en una lista l
+//usando la funcion fptr como funcion comparadora
+//Si la opcion es 0 significa que solo quiero ver si esta el elemento
+//Si es uno, quiero ver si esta, y si es asi borrar el elemento
 caja *esta(lista *l, caja *c, int (*fptr)(caja *, caja *), int opcion){
 	caja *buscar = l->first;
 

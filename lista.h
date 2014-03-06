@@ -14,6 +14,9 @@
 	#define listas
 #endif
 
+
+//Funciones que seran explicada en el archivo que contiene su codigo fuente (lista.c)
+
 int comparador2(caja *, caja *);
 
 int comparador(caja *, caja *);

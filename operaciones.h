@@ -19,6 +19,9 @@
 	#define operaciones
 #endif
 
+
+//Funciones que seran expicadas en el archivo del codigo fuente operaciones.c
+
 void liberar_memoria(lista *);
 
 void bfs(lista *);
